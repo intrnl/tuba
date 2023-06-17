@@ -7,7 +7,7 @@ import { type VideoItem } from '~/api/types.ts';
 import { getRegion } from '~/globals/preferences.ts';
 
 import CircularProgress from '~/components/CircularProgress.tsx';
-import LargeVideoItem, { createLargeVideoKey } from '~/components/LargeVideoItem.tsx';
+import VideoItemLarge, { createLargeVideoKey } from '~/components/VideoItemLarge.tsx';
 import VirtualContainer from '~/components/VirtualContainer.tsx';
 
 const IndexPage = () => {
@@ -35,7 +35,7 @@ const IndexPage = () => {
 						<For each={data()}>
 							{(item) => (
 								<VirtualContainer key="large_video" id={createLargeVideoKey(item, true)}>
-									<LargeVideoItem item={item} showAge />
+									<VideoItemLarge item={item} showAge />
 								</VirtualContainer>
 							)}
 						</For>

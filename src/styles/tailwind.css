@@ -58,4 +58,9 @@
 	body:has(dialog[data-modal][open]) {
 		@apply overflow-hidden pr-[--sb-width];
 	}
+
+	.text-shadow-img {
+		text-shadow: 1px 1px hsla(0, 0%, 6.7%, 0.2), -1px 1px hsla(0, 0%, 6.7%, 0.2),
+			-1px -1px hsla(0, 0%, 6.7%, 0.2), 1px -1px hsla(0, 0%, 6.7%, 0.2);
+	}
 }

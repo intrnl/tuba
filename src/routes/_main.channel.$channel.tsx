@@ -38,7 +38,7 @@ const ChannelLayout = () => {
 
 	return (
 		<div class="flex flex-col">
-			<div class="sticky top-0 z-10 flex h-13 items-center border-b border-divider bg-background px-4">
+			<div class="sticky top-0 z-20 flex h-13 items-center border-b border-divider bg-background px-4">
 				<p class="text-base font-bold leading-5">{query.data ? query.data.name : 'Channel'}</p>
 			</div>
 

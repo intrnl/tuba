@@ -3,10 +3,9 @@ import { For, Match, Switch, useContext } from 'solid-js';
 import { A } from '~/router.ts';
 import * as CompactFormat from '~/utils/intl/compact-format.ts';
 import * as RelTimeFormat from '~/utils/intl/reltime-format.ts';
-import * as DurationFormat from '~/utils/intl/duration-format.ts';
 
 import VirtualContainer from '~/components/VirtualContainer.tsx';
-import LargeVideoItem, { createLargeVideoKey } from '~/components/LargeVideoItem.tsx';
+import VideoItemLarge, { createLargeVideoKey } from '~/components/VideoItemLarge.tsx';
 
 import { WatchLayoutContext } from './_main.watch.$video.tsx';
 
@@ -71,7 +70,7 @@ const WatchPage = () => {
 									if (type === 'stream') {
 										return (
 											<VirtualContainer key="large_video" id={createLargeVideoKey(item, false)}>
-												<LargeVideoItem item={item} />
+												<VideoItemLarge item={item} />
 											</VirtualContainer>
 										);
 									}

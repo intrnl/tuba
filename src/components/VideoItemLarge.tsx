@@ -7,7 +7,7 @@ import * as CompactFormat from '~/utils/intl/compact-format.ts';
 import * as RelTimeFormat from '~/utils/intl/reltime-format.ts';
 import * as DurationFormat from '~/utils/intl/duration-format.ts';
 
-interface LargeVideoItemProps {
+interface VideoItemLargeProps {
 	item: VideoItem;
 	showAge?: boolean;
 }
@@ -16,7 +16,7 @@ export const createLargeVideoKey = (item: VideoItem, showAge: boolean = false) =
 	return `${item.url.slice(9)}:${+showAge}`;
 };
 
-const LargeVideoItem = (props: LargeVideoItemProps) => {
+const VideoItemLarge = (props: VideoItemLargeProps) => {
 	const item = () => props.item;
 
 	const channelId = () => item().uploaderUrl.slice(9);
@@ -57,4 +57,4 @@ const LargeVideoItem = (props: LargeVideoItemProps) => {
 	);
 };
 
-export default LargeVideoItem;
+export default VideoItemLarge;
