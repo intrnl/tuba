@@ -57,11 +57,13 @@ export const request = async <T = any>(ctx: QueryFunctionContext<RequestKey>): P
 		}
 	}
 
-	if (token) {
-		search.set('authToken', token);
-	}
-	if (meta && meta.nextpage) {
-		search.set('nextpage', ctx.pageParam);
+	if (meta) {
+		if (token && meta.auth) {
+			search.set('authToken', token);
+		}
+		if (meta.nextpage) {
+			search.set('nextpage', ctx.pageParam);
+		}
 	}
 
 	const response = await fetch(url, {
@@ -78,6 +80,7 @@ export const request = async <T = any>(ctx: QueryFunctionContext<RequestKey>): P
 
 declare module '@tanstack/query-core' {
 	export interface QueryMeta {
+		auth?: boolean;
 		nextpage?: boolean;
 	}
 }
