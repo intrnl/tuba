@@ -1,5 +1,6 @@
 import { Match, Show, Switch, createContext } from 'solid-js';
 
+import { Title } from '@solidjs/meta';
 import { Outlet } from '@solidjs/router';
 import { type CreateQueryResult, createQuery } from '@tanstack/solid-query';
 
@@ -52,6 +53,8 @@ const ChannelLayout = () => {
 				<Match when={query.data}>
 					{(data) => (
 						<>
+							<Title>{data().name} - Tuba</Title>
+
 							<div class="aspect-banner bg-muted-fg">
 								<Show when={data().bannerUrl} keyed>
 									{(banner) => <img src={banner} class="h-full w-full object-cover" />}

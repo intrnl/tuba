@@ -1,5 +1,6 @@
-import { createContext, createEffect, createSignal, untrack } from 'solid-js';
+import { Show, createContext, createEffect, createSignal, untrack } from 'solid-js';
 
+import { Title } from '@solidjs/meta';
 import { Outlet } from '@solidjs/router';
 import { type CreateQueryResult, createQuery } from '@tanstack/solid-query';
 
@@ -114,6 +115,14 @@ const WatchLayout = () => {
 
 	return (
 		<div class="flex flex-col">
+			<Show when={query.data}>
+				{(data) => (
+					<>
+						<Title>{data().title} - Tuba</Title>
+					</>
+				)}
+			</Show>
+
 			<div class="relative">
 				<video ref={videoEl} class="w-full bg-black" controls classList={{ 'aspect-video': !ready() }} />
 			</div>

@@ -1,3 +1,4 @@
+import { MetaProvider, Title } from '@solidjs/meta';
 import { Outlet } from '@solidjs/router';
 import { QueryClient, QueryClientProvider } from '@tanstack/solid-query';
 
@@ -12,9 +13,13 @@ const queryClient = new QueryClient({
 
 const Root = () => {
 	return (
-		<QueryClientProvider client={queryClient}>
-			<Outlet />
-		</QueryClientProvider>
+		<MetaProvider>
+			<Title>Tuba</Title>
+
+			<QueryClientProvider client={queryClient}>
+				<Outlet />
+			</QueryClientProvider>
+		</MetaProvider>
 	);
 };
 
