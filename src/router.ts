@@ -19,7 +19,8 @@ export type PathsWithParams =
 	| "/channel/:channel/channels"
 	| "/channel/:channel/streams"
 	| "/channel/:channel/shorts"
-	| "/watch/:video";
+	| "/watch/:video"
+	| "/watch/:video/about";
 export type PathsWithoutParams = 
 	| "/subscriptions"
 	| "/you"
@@ -36,6 +37,7 @@ export interface Params {
 	"/channel/:channel/streams": { "channel": string };
 	"/channel/:channel/shorts": { "channel": string };
 	"/watch/:video": { "video": string };
+	"/watch/:video/about": { "video": string };
 }
 
 type NavigateWithParamOptions<P> = P extends number

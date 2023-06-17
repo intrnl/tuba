@@ -48,6 +48,10 @@ const routes: RouteDefinition[] = [
             path: "/",
             component: lazy(() => import("./routes/_main.watch.$video._index.tsx")),
           },
+          {
+            path: "about",
+            component: lazy(() => import("./routes/_main.watch.$video.about.tsx")),
+          },
         ],
       },
       {
