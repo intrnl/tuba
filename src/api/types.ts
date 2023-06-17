@@ -49,8 +49,9 @@ interface ChannelItems<T> {
 	content: T[];
 }
 
-export type ChannelPlaylistsPage = ChannelItems<PlaylistItem>;
-export type ChannelChannelsPage = ChannelItems<ChannelItem>;
+export type ChannelShorts = ChannelItems<VideoItem>;
+export type ChannelPlaylists = ChannelItems<PlaylistItem>;
+export type ChannelChannels = ChannelItems<ChannelItem>;
 
 export interface Channel extends ChannelVideos {
 	id: string;
