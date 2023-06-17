@@ -42,6 +42,8 @@ const constructPath = (key: RequestKey) => {
 
 export const request = async <T = any>(ctx: QueryFunctionContext<RequestKey>): Promise<T> => {
 	const meta = ctx.meta;
+	const pageParam = ctx.pageParam;
+
 	const [path, params] = constructPath(ctx.queryKey);
 
 	const { instanceUrl, token } = getActiveAccount();
@@ -61,7 +63,7 @@ export const request = async <T = any>(ctx: QueryFunctionContext<RequestKey>): P
 		if (token && meta.auth) {
 			search.set('authToken', token);
 		}
-		if (meta.nextpage) {
+		if (pageParam !== undefined && meta.nextpage) {
 			search.set('nextpage', ctx.pageParam);
 		}
 	}
