@@ -1,20 +1,23 @@
-import { For, Match, Show, Switch } from 'solid-js';
+import { For, Match, Show, Switch, createSignal } from 'solid-js';
 
 import { createInfiniteQuery } from '@tanstack/solid-query';
 
-import { requestKey, requestNextpage } from '~/api/request.ts';
+import { request, requestKey, requestNextpage } from '~/api/request.ts';
 import { type Comments } from '~/api/types.ts';
 
 import { useParams } from '~/router.ts';
 
-import BodyRenderer from '~/components/BodyRenderer.tsx';
 import CircularProgress from '~/components/CircularProgress.tsx';
+import CommentItem from '~/components/CommentItem.tsx';
+import button from '~/styles/primitives/button.ts';
 
 const WatchVideoCommentsPage = () => {
 	const params = useParams('/watch/:video/comments');
 
+	const video = () => params.video;
+
 	const query = createInfiniteQuery({
-		queryKey: () => requestKey(['nextpage', 'comments', params.video]),
+		queryKey: () => requestKey(['nextpage', 'comments', video()]),
 		queryFn: requestNextpage<Comments>,
 		getNextPageParam: (last) => last.nextpage,
 		meta: {
@@ -34,25 +37,62 @@ const WatchVideoCommentsPage = () => {
 						when={idx() !== 0 || !page.disabled}
 						fallback={<p class="p-4 text-sm">This video has comments disabled.</p>}
 					>
-						<For each={page.comments}>
-							{(item) => {
-								return (
-									<div class="flex gap-4 border-b border-divider px-4 py-3">
-										<div class="shrink-0">
-											<img src={item.thumbnail} class="h-12 w-12 rounded-full" />
-										</div>
-										<div class="min-w-0 grow">
-											<div class="mb-0.5 flex items-center text-sm">
-												<span class="line-clamp-1 break-all font-medium">{item.author}</span>
+						{page.comments.map((item) => (
+							<>
+								<CommentItem item={item} />
+
+								<Show when={item.repliesPage} keyed>
+									{(replyUrl) => {
+										const [enabled, setEnabled] = createSignal(false);
+
+										const childQuery = createInfiniteQuery({
+											queryKey: () => requestKey(['nextpage', 'comments', video()], { nextpage: replyUrl }),
+											queryFn: request<Comments>,
+											getNextPageParam: (last) => last.nextpage,
+											meta: {
+												nextpage: true,
+											},
+											get enabled() {
+												return enabled();
+											},
+										});
+
+										return (
+											<div class="pb-3 pl-16">
+												<For each={childQuery.data?.pages}>
+													{(page) => page.comments.map((item) => <CommentItem item={item} small />)}
+												</For>
+
+												<Switch>
+													<Match when={childQuery.isInitialLoading || childQuery.isFetchingNextPage}>
+														<div class="flex h-13 items-center justify-center">
+															<CircularProgress />
+														</div>
+													</Match>
+
+													<Match when={!enabled() || childQuery.hasNextPage}>
+														<button
+															onClick={() => {
+																if (enabled()) {
+																	childQuery.fetchNextPage();
+																} else {
+																	setEnabled(true);
+																}
+															}}
+															class={/* @once */ button({ color: 'ghost' })}
+														>
+															Show more replies
+														</button>
+													</Match>
+												</Switch>
 											</div>
-											<p class="whitespace-pre-wrap break-words text-sm">
-												<BodyRenderer text={item.commentText} />
-											</p>
-										</div>
-									</div>
-								);
-							}}
-						</For>
+										);
+									}}
+								</Show>
+
+								<hr class="border-divider" />
+							</>
+						))}
 					</Show>
 				)}
 			</For>
@@ -73,7 +113,7 @@ const WatchVideoCommentsPage = () => {
 					</button>
 				</Match>
 
-				<Match when={!query.isInitialLoading}>
+				<Match when>
 					<div class="flex h-13 items-center justify-center">
 						<p class="text-sm text-muted-fg">End of list</p>
 					</div>

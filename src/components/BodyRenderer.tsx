@@ -1,6 +1,6 @@
 import { type SanitizeOptions, DEFAULT_OPTIONS, sanitize } from '@intrnl/dom-sanitize';
 
-const sanitizeOptions: SanitizeOptions = {
+export const sanitizeOptions: SanitizeOptions = {
 	...DEFAULT_OPTIONS,
 	setAttributes: {
 		...DEFAULT_OPTIONS.setAttributes,
