@@ -116,7 +116,7 @@ export interface Comment {
 	author: string;
 	thumbnail: string;
 	commentId: string;
-	commentText: '純虐たまらん';
+	commentText: string;
 	commentedTime: string;
 	commentorUrl: string;
 	likeCount: number;

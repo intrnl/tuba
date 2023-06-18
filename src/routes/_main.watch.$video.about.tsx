@@ -1,21 +1,9 @@
 import { Match, Switch, useContext } from 'solid-js';
 
-import { type SanitizeOptions, DEFAULT_OPTIONS, sanitize } from '@intrnl/dom-sanitize';
-
+import BodyRenderer from '~/components/BodyRenderer.tsx';
 import CircularProgress from '~/components/CircularProgress.tsx';
 
 import { WatchLayoutContext } from './_main.watch.$video.tsx';
-
-const sanitizeOptions: SanitizeOptions = {
-	...DEFAULT_OPTIONS,
-	setAttributes: {
-		...DEFAULT_OPTIONS.setAttributes,
-		a: {
-			...DEFAULT_OPTIONS.setAttributes?.a,
-			class: 'text-accent hover:underline',
-		},
-	},
-};
 
 const WatchVideoAboutPage = () => {
 	const query = useContext(WatchLayoutContext)!;
@@ -44,12 +32,7 @@ const WatchVideoAboutPage = () => {
 								<hr class="border-divider" />
 
 								<div class="whitespace-pre-wrap break-words p-4 text-sm">
-									{(() => {
-										const description = data().description;
-										const sanitized = sanitize(description, sanitizeOptions);
-
-										return sanitized;
-									})()}
+									<BodyRenderer text={data().description} />
 								</div>
 							</>
 						);

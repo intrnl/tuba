@@ -59,9 +59,9 @@ const WatchPage = () => {
 
 							<hr class="border-divider" />
 
-							<div class="px-4 py-3">
+							<A href="/watch/:video/comments" params={params} class="px-4 py-3">
 								<span class="text-sm">Comments</span>
-							</div>
+							</A>
 
 							<hr class="border-divider" />
 
