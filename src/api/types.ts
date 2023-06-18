@@ -111,3 +111,24 @@ export interface Video {
 	videoStreams: Stream[];
 	relatedStreams: (VideoItem | PlaylistItem)[];
 }
+
+export interface Comment {
+	author: string;
+	thumbnail: string;
+	commentId: string;
+	commentText: '純虐たまらん';
+	commentedTime: string;
+	commentorUrl: string;
+	likeCount: number;
+	replyCount: number;
+	repliesPage: string | null;
+	hearted: boolean;
+	pinned: boolean;
+	verified: boolean;
+}
+
+export interface Comments {
+	comments: Comment[];
+	disabled: boolean;
+	nextpage: string | null;
+}

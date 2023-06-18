@@ -2,7 +2,7 @@ import { For, Match, Switch, useContext } from 'solid-js';
 
 import { createInfiniteQuery } from '@tanstack/solid-query';
 
-import { request, requestKey } from '~/api/request.ts';
+import { requestKey, requestNextpage } from '~/api/request.ts';
 import { type ChannelVideos } from '~/api/types.ts';
 
 import { useParams } from '~/router.ts';
@@ -20,14 +20,7 @@ const ChannelVideosPage = () => {
 
 	const query = createInfiniteQuery({
 		queryKey: () => requestKey(['nextpage', 'channel', params.channel]),
-		queryFn: (ctx): Promise<ChannelVideos> => {
-			if (ctx.pageParam) {
-				return request(ctx);
-			}
-
-			// @ts-expect-error
-			return request({ ...ctx, queryKey: ctx.queryKey.slice(1) });
-		},
+		queryFn: requestNextpage<ChannelVideos>,
 		getNextPageParam: (last) => last.nextpage,
 		initialData: () => {
 			const { nextpage, relatedStreams } = parentQuery.data!;

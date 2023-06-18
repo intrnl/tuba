@@ -45,6 +45,10 @@ const routes: RouteDefinition[] = [
         component: lazy(() => import("./routes/_main.watch.$video.tsx")),
         children: [
           {
+            path: "comments",
+            component: lazy(() => import("./routes/_main.watch.$video.comments.tsx")),
+          },
+          {
             path: "/",
             component: lazy(() => import("./routes/_main.watch.$video._index.tsx")),
           },

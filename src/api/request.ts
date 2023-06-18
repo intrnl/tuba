@@ -40,6 +40,15 @@ const constructPath = (key: RequestKey) => {
 	return [str, params] as const;
 };
 
+export const requestNextpage = <T = any>(ctx: QueryFunctionContext<RequestKey>): Promise<T> => {
+	if (ctx.pageParam) {
+		return request(ctx);
+	}
+
+	// @ts-expect-error
+	return request({ ...ctx, queryKey: ctx.queryKey.slice(1) });
+};
+
 export const request = async <T = any>(ctx: QueryFunctionContext<RequestKey>): Promise<T> => {
 	const meta = ctx.meta;
 	const pageParam = ctx.pageParam;
