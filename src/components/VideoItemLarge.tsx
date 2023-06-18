@@ -24,7 +24,7 @@ const VideoItemLarge = (props: VideoItemLargeProps) => {
 
 	return (
 		<div>
-			<A href="/watch/:video" params={{ video: videoId() }} class="relative">
+			<A href="/watch/:video" params={{ video: videoId() }} class="relative block">
 				<img src={item().thumbnail} class="aspect-video w-full object-cover" />
 
 				<span class="absolute bottom-0 right-0 m-1 rounded bg-black/80 px-1 py-px text-xs text-white">
